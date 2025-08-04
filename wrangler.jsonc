@@ -3,9 +3,7 @@
   "name": "cfp-hono-test-page",
   "main": "./dist/index.js",
   "compatibility_date": "2025-08-04",
-  "compatibility_flags": [
-    "nodejs_compat"
-  ],
+  "compatibility_flags": ["nodejs_compat"],
   "assets": {
     "directory": "./dist"
   }

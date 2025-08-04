@@ -1,8 +1,8 @@
-import { createRoute } from 'honox/factory'
-import Counter from '../islands/counter'
+import { createRoute } from "honox/factory";
+import Counter from "../islands/counter";
 
 export default createRoute((c) => {
-  const name = c.req.query('name') ?? 'Hono'
+  const name = c.req.query("name") ?? "Hono";
   return c.render(
     <div class="py-8 text-center">
       <title>{name}</title>
@@ -10,6 +10,6 @@ export default createRoute((c) => {
       <h1 class="text-3xl font-bold"> TEST PAGES! </h1>
       <h1 class="text-3xl font-bold"> TEST PAGES2! </h1>
       <Counter />
-    </div>
-  )
-})
+    </div>,
+  );
+});
