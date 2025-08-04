@@ -1,14 +1,9 @@
 {
   "$schema": "node_modules/wrangler/config-schema.json",
   "name": "cfp-hono-test-page",
-  "main": "./dist/index.js",
+  "pages_build_output_dir": "./dist",
   "compatibility_date": "2025-08-04",
-  "compatibility_flags": [
-    "nodejs_compat"
-  ],
-  "assets": {
-    "directory": "./dist"
-  }
+  "compatibility_flags": ["nodejs_compat"],
   // "vars": {
   //   "MY_VAR": "my-variable"
   // },
