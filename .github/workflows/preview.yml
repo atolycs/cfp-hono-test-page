@@ -7,6 +7,7 @@ on:
       - feature/**
     paths:
       - src/**
+      - app/**
   workflow_dispatch:
 
 
