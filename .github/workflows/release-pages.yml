@@ -1,0 +1,77 @@
+name: Deploy Cloudflare Pages
+run-name: Deploy Cloudflare Pages (${{ github.event.pull_request.head.sha }})
+
+on:
+ pull_request:
+   types: [closed]
+   branches:
+    - main
+   paths:
+    - src/**
+ workflow_dispatch:
+
+
+jobs:
+  closed_comment:
+    runs-on: ubuntu-latest
+    if: github.event_name == 'pull_request' && github.event.action == 'closed' && github.event.pull_request.merged == true
+    steps:
+      - name: Create Github Apps Token
+        uses: atolycs/gh-action-util/create-gha-token@main
+        id: gh_token
+        with:
+          app-id: ${{ secrets.APP_ID }}
+          private-key: ${{ secrets.APP_PEM }}
+
+      - name: closed comment
+        uses: actions/github-script@v7
+        with:
+          github-token: ${{ steps.gh_token.outputs.token }}
+          script: |
+            const pr_number = context.payload.pull_request?.number;
+            await github.rest.pulls.createReview({
+              ...context.repo,
+               pull_number: pr_number,
+               event: 'COMMENT',
+               body: [
+                'Thank you review.'
+               ].join('\n')
+            })
+
+  build:
+    name: Build Hono 
+    if: github.event_name == 'pull_request' && github.event.action == 'closed' && github.event.pull_request.merged == true
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Create Github Apps Token
+        uses: atolycs/gh-action-util/create-gha-token@main
+        id: gh_token
+        with:
+          app-id: ${{ secrets.APP_ID }}
+          private-key: ${{ secrets.APP_PEM }}
+
+      - name: Deploy
+        uses: atolycs/gh-action-util/deploy-cf-pages@main
+        with:
+          gha-app-id: ${{ secrets.APP_ID }}
+          gha-app-pem: ${{ secrets.APP_PEM }}
+          cf-gentoken: ${{ secrets.CF_TOKEN }}
+          cf-account-id: ${{ secrets.CF_ACCOUNT_ID }}
+
+      - name: Commit status
+        uses: actions/github-script@v7
+        with:
+          github-token: ${{ steps.gh_token.outputs.token }}
+          script: |
+            const sha = context.payload.pull_request?.head.sha ?? context.sha;
+
+            await github.rest.repos.createCommitStatus({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              context: "Cloudflare Pages",
+              description: "Launched Apps!",
+              state: 'success',
+              sha,
+              target_url: '${{ steps.cloudflare_pages_deploy.outputs.deployment-url }}'
+            });
