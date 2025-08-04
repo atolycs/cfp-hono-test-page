@@ -1,0 +1,26 @@
+name: Hello Action World
+
+on:
+ workflow_dispatch:
+
+
+jobs:
+  build:
+    name: Build Hono build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Create Github App Token
+        uses: atolycs/gh-action-util/create-gha-token@main
+        id: gh_token
+        with:
+         app-id: ${{ secrets.APP_ID }}
+         private-key: ${{ secrets.APP_PEM }}
+
+      - name: checkout
+        uses: actions/checkout@v4
+
+      - name: Hello world
+        env:
+         GH_TOKEN: ${{ steps.gh_token.outputs.token }}
+        run: |
+          gh issue create --title "Hello world!" --body "Hello world!\nTest from Github Action"
