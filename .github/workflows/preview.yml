@@ -1,7 +1,8 @@
 name: Code update PR
 
 on:
-  push:
+  pull_request:
+#  push:
     branches: 
       - dev/**
       - feature/**
