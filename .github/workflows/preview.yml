@@ -1,18 +1,14 @@
 name: Code update PR
 
 on:
-  pull_request:
-    types:
-      - opened
-      - reopened
-      - synchronize
-#  push:
+  push:
     branches: 
       - dev/**
       - feature/**
     paths:
       - src/**
       - app/**
+  pull_request:
   workflow_dispatch:
 
 
