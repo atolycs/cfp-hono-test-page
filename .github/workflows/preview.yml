@@ -2,6 +2,9 @@ name: Code update PR
 
 on:
   pull_request:
+    types:
+      - opened
+      - synchronize
 #  push:
     branches: 
       - dev/**
