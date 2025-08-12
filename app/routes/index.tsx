@@ -12,6 +12,7 @@ export default createRoute((c) => {
       <h1 class="text-3xl font-bold"> TEST PAGES3! </h1>
       <h1 class="text-3xl font-bold"> TEST PAGES4! </h1>
       <h1 class="text-3xl font-bold"> TEST PAGES5! </h1>
+      <h1 class="text-3xl font-bold"> TEST PAGES6! </h1>
       <Counter />
     </div>,
   );
