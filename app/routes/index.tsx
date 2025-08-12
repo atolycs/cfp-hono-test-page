@@ -1,13 +1,22 @@
-import { createRoute } from 'honox/factory'
-import Counter from '../islands/counter'
+import { createRoute } from "honox/factory";
+import Counter from "../islands/counter";
 
 export default createRoute((c) => {
-  const name = c.req.query('name') ?? 'Hono'
+  const name = c.req.query("name") ?? "Hono";
   return c.render(
     <div class="py-8 text-center">
       <title>{name}</title>
       <h1 class="text-3xl font-bold">Hello, {name}!</h1>
+      <h1 class="text-3xl font-bold"> TEST PAGES! </h1>
+      <h1 class="text-3xl font-bold"> TEST PAGES2! </h1>
+      <h1 class="text-3xl font-bold"> TEST PAGES3! </h1>
+      <h1 class="text-3xl font-bold"> TEST PAGES4! </h1>
+      <h1 class="text-3xl font-bold"> TEST PAGES5! </h1>
+      <h1 class="text-3xl font-bold"> TEST PAGES6! </h1>
+      <h1 class="text-3xl font-bold"> TEST PAGES7! </h1>
+      <h1 class="text-3xl font-bold"> TEST PAGES8! </h1>
+      <h1 class="text-3xl font-bold"> TEST PAGES9! </h1>
       <Counter />
-    </div>
-  )
-})
+    </div>,
+  );
+});
